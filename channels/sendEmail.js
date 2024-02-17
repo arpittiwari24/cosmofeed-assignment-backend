@@ -1,8 +1,6 @@
 import nodemailer from "nodemailer"
 
-export default async function sendEmail(req, res) {
-
-    let email, subject, text;
+export default async function sendEmail(text, subject, resipient) {
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -14,16 +12,16 @@ export default async function sendEmail(req, res) {
     
     const mailOptions = {
         from: process.env.EMAIL,
-        to: email,
+        to: resipient,
         subject: subject,
         text: text
     }
     
-    transporter.sendMail(mailOptions, (err, info) => {
+ await transporter.sendMail(mailOptions, (err, info) => {
         if(err){
             console.log(err);
         } else {
-            res.status(200).json(info)
+            log.info("Email sent: " + info.response);
         }
     })
 }

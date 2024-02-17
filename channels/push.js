@@ -4,9 +4,7 @@ import PushNotifications from "node-pushnotifications";
 const publicVapidKey = process.env.PUBLIC_KEY
 const privateVapidKey = process.env.PRIVATE_KEY
 
-export default async function Notifications() {
-    const subscription = req.body
-    console.log(subscription);
+export default async function sendPush(Message) {
     
     const settings = {
          web: {
@@ -27,11 +25,11 @@ export default async function Notifications() {
 
     const payload = {title: "Notification for Testing"}
 
-    push.send(subscription,payload, (err,response) => {
+    push.send(Message,payload, (err,response) => {
         if(err){
             console.log(err);
         } else {
-            res.status(200).json(response)
+            console.log(response);
         }
     })    
 }
